@@ -39,6 +39,46 @@ async function handlerMailchimp(request) {
     return await fetch(`${UTIL_API_ENDPOINT}/mailchimp/list?name=${name}`)
 }
 
+async function handlerSiteSettings(request) {
+    const body = await request.text()
+    const init = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    }
+    let response = await fetch(`${UTIL_API_ENDPOINT}/site/settings`, {
+        body: body,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    response = await response.json()
+
+    return new Response(JSON.stringify({ data: response.data }), init)
+}
+
+async function handlerFrontpage(request) {
+    const body = await request.text()
+    const init = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+        },
+    }
+    let response = await fetch(`${UTIL_API_ENDPOINT}/site/frontpage`, {
+        body: body,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    response = await response.json()
+
+    return new Response(JSON.stringify({ data: response.data }), init)
+}
+
 async function handleRequest(request) {
     const r = new Router()
 
@@ -54,7 +94,9 @@ async function handleRequest(request) {
     )
     r.post('/sanitize', request => handlerSanitize(request))
     r.get('/map', request => handlerMap(request))
-    r.get('/mailchimp', request => handlerMailchimp(request))
+    r.get('/mailchimp/list', request => handlerMailchimp(request))
+    r.post('/site/settings', request => handlerSiteSettings(request))
+    r.post('/site/frontpage', request => handlerFrontpage(request))
 
     const resp = await r.route(request)
     return resp

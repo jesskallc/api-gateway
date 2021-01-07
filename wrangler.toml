@@ -4,12 +4,11 @@ account_id = "fbcf66bdf52427e2e6abbf4dcbd3c6fe"
 workers_dev = true
 route = ""
 zone_id = ""
-vars = { ENVIRONMENT = "dev", UTIL_API_ENDPOINT = "https://dawn-tqa-staging.begin.app" }
+vars = { ENVIRONMENT = "dev", UTIL_API_ENDPOINT = "https://panda-q5e-staging.begin.app" }
 
 [env.staging]
 name = "api-staging"
-vars = { ENVIRONMENT = "staging" }
-
+vars = { ENVIRONMENT = "staging", UTIL_API_ENDPOINT = "https://panda-q5e-staging.begin.app" }
 
 [env.production]
 name = "api"
